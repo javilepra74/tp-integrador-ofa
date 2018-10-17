@@ -21,19 +21,19 @@ public class IngredienteService {
     @PersistenceContext(unitName = "RECETAS_PU")
     private EntityManager em;
 
-    public Ingrediente guardar(Ingrediente a) {
+    public Ingrediente guardar(Ingrediente i) {
         // TODO: completar metodo
         // si el ingrediente tiene seteado un ID realiza merge
         // caso contrario realiza un persist
         // nuevo
-        if(a.getId()!=null && a.getId()>0) {
-            return em.merge(a);
+        if(i.getId()!=null && i.getId()>0) {
+            return em.merge(i);
         }
-        em.persist(a);
+        em.persist(i);
         em.flush();
-        em.refresh(a);
+        em.refresh(i);
         //
-        return a;
+        return i;
     }
 
     public List<Ingrediente> listar() {
