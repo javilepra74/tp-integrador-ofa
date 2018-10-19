@@ -50,8 +50,17 @@ public class RecetaService {
                 .getResultList();
     }
     
-    public List<Receta> busquedaAvanzada(AutorService a, Ingrediente i, Double precioMin, Double precioMax,Date fMin,Date fMax){        
-        return null;
+    public List<Receta> busquedaAvanzada(AutorService aut, Ingrediente ing, Double precioMin, Double precioMax,Date fMin,Date fMax){        
+            return em.createQuery("SELECT r FROM Receta r JOIN r.ingredientes i WHERE r.precio >= :PMINIMO and r.precio <= :PMAXIMO and r.fechaCreacion >= :PFMIN and r.fechaCreacion <= :PFMAX and (r.autor = :PAUTOR or :PAUTOR is null) AND (i.id = :PINGRE or :PINGRE is null)")
+            //nuevo
+            .setParameter("PMINIMO", precioMin)
+            .setParameter("PMAXIMO", precioMax)
+            .setParameter("PFMIN", fMin)
+            .setParameter("PFMAX", fMax)
+            .setParameter("PAUTOR", aut)
+            .setParameter("PINGRE", ing.getId())    
+            .getResultList();        
+            //return null;
     }
 
 }

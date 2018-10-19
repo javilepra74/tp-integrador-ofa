@@ -70,4 +70,29 @@ public class Pedido implements Serializable{
     public void setRecetasPedidas(List<Receta> recetasPedidas) {
         this.recetasPedidas = recetasPedidas;
     }
+    
+        @Override
+    public int hashCode() {
+        int hash = 0;
+        hash += (idPedido != null ? idPedido.hashCode() : 0);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object object) {
+        // TODO: Warning - this method won't work in the case the id fields are not set
+        if (!(object instanceof Pedido)) {
+            return false;
+        }
+        Pedido other = (Pedido) object;
+        if ((this.idPedido == null && other.idPedido != null) || (this.idPedido != null && !this.idPedido.equals(other.idPedido))) {
+            return false;
+        }
+        return true;
+    }
+
+    @Override
+    public String toString() {
+        return "utn.frsf.ofa.cursojava.tp.integrador.modelo.Pedido[ idPedido=" + idPedido + " ]";
+    }
 }

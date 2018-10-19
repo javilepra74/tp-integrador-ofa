@@ -8,6 +8,7 @@ package utn.frsf.ofa.cursojava.tp.integrador.modelo;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
+import java.util.Objects;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -50,7 +51,7 @@ public class Receta implements Serializable{
      @ManyToOne
     @JoinColumn(name = "ID_AUTOR")
     private Autor autor;
-    
+     
     public Integer getId() {
         return id;
     }
@@ -115,6 +116,38 @@ public class Receta implements Serializable{
         this.autor = autor;
     }
     
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 22 * hash + Objects.hashCode(this.id);
+        hash = 22 * hash + Objects.hashCode(this.descripcion);
+         return hash;
+    }
 
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Receta other = (Receta) obj;
+        if (!Objects.equals(this.descripcion, other.descripcion)) {
+            return false;
+        }
+        if (!Objects.equals(this.id, other.id)) {
+            return false;
+        }
+        return true;
+    }
+    
+    @Override
+    public String toString() {
+        return id+";"+titulo;
+    }
     
 }

@@ -61,7 +61,8 @@ public class IngredienteController implements Serializable{
         this.listaIngredientes.add(ing);
         this.ingredienteSeleccionado=null;
         //
-        return "listaIngrediente";
+        return null;      
+        //return "listaIngrediente";
     }
 
     public String nuevo(){

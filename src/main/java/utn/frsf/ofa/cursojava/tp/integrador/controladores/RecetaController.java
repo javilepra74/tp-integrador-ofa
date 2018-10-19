@@ -2,6 +2,7 @@ package utn.frsf.ofa.cursojava.tp.integrador.controladores;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.SessionScoped;
@@ -39,6 +40,16 @@ public class RecetaController implements Serializable {
     private List<Receta> listaRecetas;
 
     private DualListModel<Ingrediente> ingredientesDisponibles;
+    
+    // variables para la busqueda
+    private Double precioMinimo= 1.0;
+    private Double precioMaximo= 10000.0;
+    private Autor autorBuscado;
+    private Ingrediente ingredienteBuscado;
+    private Date fechaDesde  = new java.util.Date(1,1,1);
+    private Date fechaHasta = new java.util.Date(200,01,01);;
+    private int tipoBusqueda;
+    
     
     public Receta getRecetaSeleccionada() {
         return recetaSeleccionada;
@@ -80,6 +91,8 @@ public class RecetaController implements Serializable {
         // TODO completar el metodo guardar
         // setear el autor de la receta seleccionada
         // invocar al metodo qeu guarda la receta
+        Receta tmp = this.recetaSrv.guardar(recetaSeleccionada);
+        this.listaRecetas.add(tmp);              
         this.recetaSeleccionada = null;
         return null;
     }
@@ -99,5 +112,66 @@ public class RecetaController implements Serializable {
         this.autorSeleccionado = autorSeleccionado;
     }
 
+    //busqueda avanzada
+    public void setIngredienteBuscado(Ingrediente ingredienteBuscado) {    
+        this.ingredienteBuscado = ingredienteBuscado;
+    }
     
+    public Ingrediente getIngredienteBuscado() {
+        return ingredienteBuscado;
+    }
+    
+    
+    public Double getPrecioMinimo(){    
+        return precioMinimo;
+    }
+
+    public void setPrecioMinimo(Double precioMinimo) {
+        this.precioMinimo = precioMinimo;
+    }
+
+    public Double getPrecioMaximo() {
+        return precioMaximo;
+    }
+
+    public void setPrecioMaximo(Double precioMaximo) {
+        this.precioMaximo = precioMaximo;
+    }
+
+    public Autor getAutorBuscado() {
+        return autorBuscado;
+    }
+
+    public void setAutorBuscado(Autor autorBuscado) {
+        this.autorBuscado = autorBuscado;
+    }
+
+    public Date getFechaDesde() {
+        return fechaDesde;
+    }
+
+    public void setFechaDesde(Date fechaDesde) {
+        this.fechaDesde = fechaDesde;
+    }
+
+    public Date getFechaHasta() {
+        return fechaHasta;
+    }
+
+    public void setFechaHasta(Date fechaHasta) {
+        this.fechaHasta = fechaHasta;
+    }
+
+    public int getTipoBusqueda() {
+        return tipoBusqueda;
+    }
+
+    public void setTipoBusqueda(int tipoBusqueda) {
+        this.tipoBusqueda = tipoBusqueda;
+    }
+    
+     //public String buscarRecetas() {        
+     //   this.listaRecetas=this.recetaSrv.busquedaAvanzada(autorBuscado, ingredienteBuscado, precioMinimo, precioMaximo, fechaDesde, fechaHasta);
+     //   return "buscarReceta";
+    //}
 }
