@@ -12,6 +12,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -22,15 +24,19 @@ import javax.persistence.TemporalType;
  */
 @Entity
 public class Pedido implements Serializable{
+    
+    private static final long serialVersionUID = 1L;
+    
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)    
     private Integer idPedido;
     private String direccionEnvio;
     
-    @Temporal(TemporalType.DATE)
+    @Temporal(javax.persistence.TemporalType.DATE)
     private Date fechaPedido;
-    
-    @ManyToMany(mappedBy = "receta")
+        
+    @ManyToMany
+    @JoinTable(name="Pedido_Receta",joinColumns = @JoinColumn(name = "ID_PEDIDO"),inverseJoinColumns = @JoinColumn(name= "ID_RECETA"))
     private List<Receta> recetasPedidas;
     
     public Integer getidPedido() {
@@ -65,5 +71,3 @@ public class Pedido implements Serializable{
         this.recetasPedidas = recetasPedidas;
     }
 }
-
-
